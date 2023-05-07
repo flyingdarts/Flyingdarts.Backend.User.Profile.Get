@@ -13,12 +13,10 @@ using Microsoft.Extensions.Options;
 
 public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, APIGatewayProxyResponse>
 {
-    private readonly ApplicationOptions _applicationOptions;
     private readonly IDynamoDBContext _dbContext;
-    public GetUserProfileQueryHandler(IDynamoDBContext dbContext, IOptions<ApplicationOptions> applicationOptions)
+    public GetUserProfileQueryHandler(IDynamoDBContext dbContext)
     {
         _dbContext = dbContext;
-        _applicationOptions = applicationOptions.Value;
     }
     public async Task<APIGatewayProxyResponse> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
     {
@@ -40,7 +38,7 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
             }
         };
         // Call the QueryAsync method to execute the query
-        IEnumerable<User> queryResults = await _dbContext.QueryAsync<User>(queryConfig, _applicationOptions.ToOperationConfig()).GetRemainingAsync(cancellationToken);
+        IEnumerable<User> queryResults = await _dbContext.QueryAsync<User>(queryConfig).GetRemainingAsync(cancellationToken);
 
         // Handle the query results
         if (queryResults == null || !queryResults.Any())
