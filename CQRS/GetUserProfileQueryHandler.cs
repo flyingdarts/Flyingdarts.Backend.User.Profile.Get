@@ -38,7 +38,7 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
         return new APIGatewayProxyResponse
         {
             StatusCode = 200,
-            Body = JsonSerializer.Serialize(result)
+            Body = JsonSerializer.Serialize(new { action = "v2/user/profile/get", message = result })
         };
 
     }
