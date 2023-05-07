@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using FluentValidation;
 using Flyingdarts.Shared;
+using Microsoft.Extensions.Configuration;
 
 public static class ServiceFactory
 {
