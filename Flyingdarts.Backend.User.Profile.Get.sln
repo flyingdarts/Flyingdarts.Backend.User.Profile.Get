@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flyingdarts.Backend.User.Profile.Get", "Flyingdarts.Backend.User.Profile.Get.csproj", "{4C092B42-20F4-4141-B9C4-6C99AD28630E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C092B42-20F4-4141-B9C4-6C99AD28630E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C092B42-20F4-4141-B9C4-6C99AD28630E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C092B42-20F4-4141-B9C4-6C99AD28630E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C092B42-20F4-4141-B9C4-6C99AD28630E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46198CFF-720F-4C46-A2C9-313AE6B59FB2}
+	EndGlobalSection
+EndGlobal
