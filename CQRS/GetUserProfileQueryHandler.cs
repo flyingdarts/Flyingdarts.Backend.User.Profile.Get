@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text.Json;
 using Amazon.Lambda.APIGatewayEvents;
 using System.Threading;
