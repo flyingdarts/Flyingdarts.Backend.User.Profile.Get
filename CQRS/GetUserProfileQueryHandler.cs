@@ -32,7 +32,7 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
             };
         // At least one item was found
         // Use the fetched object(s) as needed
-        var result = queryItems.First().Profile;
+        var result = queryItems.First();
 
         return new APIGatewayProxyResponse
         {
