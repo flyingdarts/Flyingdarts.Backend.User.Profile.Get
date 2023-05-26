@@ -4,6 +4,6 @@ public class GetUserProfileQueryValidator : AbstractValidator<GetUserProfileQuer
 {
     public GetUserProfileQueryValidator()
     {
-        RuleFor(x => x.UserId).NotNull().NotEmpty();
+        RuleFor(x => x.CognitoUserName).NotNull().NotEmpty();
     }
 }
