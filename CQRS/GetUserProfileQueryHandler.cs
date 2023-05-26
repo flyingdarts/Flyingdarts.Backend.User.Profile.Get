@@ -21,7 +21,7 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
     }
     public async Task<APIGatewayProxyResponse> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
     {
-        var queryItems = await _dbContext.FromQueryAsync<User>(QueryConfig(request.UserId), _applicationOptions.ToOperationConfig())
+        var queryItems = await _dbContext.FromQueryAsync<User>(QueryConfig(request.CognitoUserName), _applicationOptions.ToOperationConfig())
             .GetRemainingAsync(cancellationToken);
 
         // Handle the query results
@@ -41,10 +41,10 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
         };
 
     }
-    private static QueryOperationConfig QueryConfig(string userId)
+    private static QueryOperationConfig QueryConfig(string userName)
     {
         var queryFilter = new QueryFilter("PK", QueryOperator.Equal, Constants.User);
-        queryFilter.AddCondition("SK", QueryOperator.BeginsWith, userId);
+        queryFilter.AddCondition("LSI1", QueryOperator.BeginsWith, userName);
         return new QueryOperationConfig { Filter = queryFilter };
     }
 }

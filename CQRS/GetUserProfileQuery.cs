@@ -3,5 +3,5 @@ using MediatR;
 
 public class GetUserProfileQuery : IRequest<APIGatewayProxyResponse>
 {
-    public string UserId { get; set; }
+    public string CognitoUserName { get; set; }
 }
