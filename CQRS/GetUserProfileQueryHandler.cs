@@ -9,6 +9,7 @@ using Flyingdarts.Persistence;
 using Flyingdarts.Shared;
 using MediatR;
 using Microsoft.Extensions.Options;
+using Flyingdarts.Lambdas.Shared;
 
 public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, APIGatewayProxyResponse>
 {
@@ -34,10 +35,14 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
         // Use the fetched object(s) as needed
         var result = queryItems.First();
 
+        var socketMessage = new SocketMessage<GetUserProfileResponse>();
+        socketMessage.Action = "v2/user/profile/get";
+        socketMessage.Message = GetUserProfileResponse.From(result, result.Profile);
+
         return new APIGatewayProxyResponse
         {
             StatusCode = 200,
-            Body = JsonSerializer.Serialize(new { action = "v2/user/profile/get", message = result })
+            Body = JsonSerializer.Serialize(socketMessage)
         };
 
     }
@@ -46,5 +51,23 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
         var queryFilter = new QueryFilter("PK", QueryOperator.Equal, Constants.User);
         queryFilter.AddCondition("LSI1", QueryOperator.BeginsWith, userName);
         return new QueryOperationConfig { Filter = queryFilter };
+    }
+    class GetUserProfileResponse
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Country { get; set; }
+
+        public static GetUserProfileResponse From(User user, UserProfile userProfile)
+        {
+            return new GetUserProfileResponse
+            {
+                UserId = user.UserId.ToString(),
+                UserName = userProfile.UserName,
+                Email = userProfile.Email,
+                Country = userProfile.Country
+            };
+        }
     }
 }
