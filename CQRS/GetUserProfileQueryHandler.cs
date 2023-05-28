@@ -24,20 +24,18 @@ public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, A
     {
         var queryItems = await _dbContext.FromQueryAsync<User>(QueryConfig(request.CognitoUserName), _applicationOptions.ToOperationConfig())
             .GetRemainingAsync(cancellationToken);
-
-        // Handle the query results
-        if (queryItems == null || !queryItems.Any())
-            return new APIGatewayProxyResponse
-            {
-                StatusCode = 404
-            };
-        // At least one item was found
-        // Use the fetched object(s) as needed
-        var result = queryItems.First();
-
         var socketMessage = new SocketMessage<GetUserProfileResponse>();
         socketMessage.Action = "v2/user/profile/get";
-        socketMessage.Message = GetUserProfileResponse.From(result, result.Profile);
+        // Handle the query results
+        if (queryItems != null && queryItems.Any())
+        {
+            // At least one item was found
+            // Use the fetched object(s) as needed
+            var result = queryItems.First();
+            socketMessage.Message = GetUserProfileResponse.From(result, result.Profile);
+
+        }
+
 
         return new APIGatewayProxyResponse
         {
